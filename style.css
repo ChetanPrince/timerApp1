@@ -22,7 +22,7 @@
 .timer{
     display: flex;
     justify-content: space-between;
-    margin: 0 45px;
+    margin: 20px 45px;
 }
 .startQuiz, .highScore{
     width: max-content;
@@ -45,4 +45,10 @@
     background-color: rgb(207, 72, 72);
     transform: translate(3px, 3px);
     box-shadow: none;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: flex;
 }

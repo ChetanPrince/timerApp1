@@ -1,9 +1,19 @@
-const button = document.getElementById("submit");
+const button = document.querySelector(".startQuiz");
 button.addEventListener("click", ()=>{
 
 
-    const input = document.querySelector(".input");
-    const output = document.querySelector("#output");
-    output.innerHTML = `<p>The list is sorted.</p>`;
+    const containers = document.querySelectorAll(".container");
+    containers.forEach(container=>{
+
+        container.classList.toggle("hide");
+    })
+    const button = document.querySelector(".startQuiz");
+    if(button.innerText === "Start Quiz"){
+        button.innerText = "Next";
+    }
+    else{
+        button.innerText = "Start Quiz";
+    }
+  
     
 })
