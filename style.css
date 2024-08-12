@@ -24,10 +24,9 @@
     justify-content: space-between;
     margin: 20px 45px;
 }
-.startQuiz, .highScore{
+.startQuiz, .highScore, .next{
     width: max-content;
     padding: 10px;
-    height: 5vh;
     border: none;
     background-color: rgba(176, 69, 69, 0.404);
     border-radius: 10px;
@@ -37,11 +36,11 @@
     font-size: 16px;
     cursor: pointer;
 }
-.startQuiz:hover, .highScore:hover{
+.startQuiz:hover, .highScore:hover, .next:hover{
     background-color: rgba(176, 69, 69, 0.804);
     
 }
-.startQuiz:active, .highScore:active{
+.startQuiz:active, .highScore:active, .next:active{
     background-color: rgb(207, 72, 72);
     transform: translate(3px, 3px);
     box-shadow: none;

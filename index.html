@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="main">
-    <div class="timer">
-        <h4>Timer:</h4>
-        <button class="highScore">View HighScores</button>
-    </div>
+        <div class="timer">
+            <h4>Timer:</h4>
+            <button class="highScore">View HighScores</button>
+        </div>
 
         
         <div class="container">
@@ -20,7 +20,7 @@
         </div>
         
         <div class="container hide">
-        <div class="show">
+                <div class="questions">
             <h4>Inside which HTML 
                 element do we put 
                 the JavaScript?</h4>
@@ -31,12 +31,11 @@
                     <option value="scripting">&lt;scripting&gt;</option>
                     
                 </select>
-                <p>
+                <p class="hide">
                     answer: &lt;script&gt;</p>
                     
-                </div>
-                
-                <div class="hide">
+                    </div> 
+                <div class="hide questions">
                     
                     <h4>How do you call a
                         function named 
@@ -48,10 +47,10 @@
                             <option value="call.myFunction">call.myFunction</option>
                             
                         </select>
-                        <p>
+                        <p class="hide">
                             answer: "myFunction()"</p>
-                        </div>
-                        <div class="hide">
+                    </div>
+                <div class="hide questions">
                             <h4>How does a for loop
                                 start?</h4>
                                 <select name="questions3" id="questions3" class="one">
@@ -61,11 +60,11 @@
                                     <option value="option4">for (i <= 5; i++)</option>
                                     
                                 </select>
-                                <p>
+                                <p class="hide">
                                     answer: option1</p>
                                     
-                                </div>
-                                <div class="hide">
+                    </div>
+                <div class="hide questions">
                                     
                                     <h4>In JavaScript, which 
                                         of the following is 
@@ -77,10 +76,10 @@
                                             <option value="option4">/</option>
                                             
                                         </select>
-                                        <p>
+                                        <p class="hide">
                                             answer: option2</p>
-                                        </div>
-    <div class="hide">
+                    </div>
+                <div class="hide questions">
 
         <h4>A named element in a 
             JavaScript program that
@@ -93,15 +92,12 @@
             <option value="option4">string</option>
             
         </select>
-        <p>
+        <p class="hide">
             answer: option3</p>
+                    </div>
+           
         </div>
-        
-        
-        
-        
-        
-    </div>
+
     <button class="startQuiz">Start Quiz</button>
     </div>
     <script src="script.js"></script>
