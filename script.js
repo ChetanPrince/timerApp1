@@ -30,17 +30,28 @@ function next() {
             nextButton.classList.add("hide");
         }); }}
 
-function submit(){
-    const questions = document.querySelectorAll(".questions"); 
+function submit() {
+    const questions = document.querySelectorAll(".questions");
     let currentQuestionIndex = -1;
-    // Find the currently visible question
-    questions.forEach((question, index) => {
-        if (!question.classList.contains("hide")) {
-            currentQuestionIndex = index + 1;
-            console.log(currentQuestionIndex);
-           const answer = document.querySelector(`#questions${currentQuestionIndex}`);
-           const output = answer.value
-           console.log(output);
-        
-        } });
+
+    questions.forEach((question, index)=>{
+        if(!question.classList.contains("hide")){
+            currentQuestionIndex = index;
+            const answerElement = question.querySelector("select");
+            const answerValue = answerElement.value;
+            console.log(answerValue);
+
+            const correctAnswerElement = question.querySelector("p");
+            const correctAnswer = correctAnswerElement.textContent.trim().split(": ")[1];
+            console.log(correctAnswer);
+            // const main = document.querySelector(".main");
+            const output = document.querySelector(".output");
+            if(answerValue === correctAnswer){
+                output.innerHTML = `<h3>You have selected the right Answer</h3>`;
+            }else{
+                // const output = document.querySelector(".output");
+                output.textContent = `${correctAnswerElement.textContent}`;
+            }
+        }
+    });
 }
