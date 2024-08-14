@@ -60,13 +60,18 @@ function next() {
     if (nextQuestionIndex < questions.length) {
         questions[nextQuestionIndex].classList.remove("hide");
     } else {
+        clearTimeout(timerInterval); // Stop the timer
+        remainingTime = timeToWaitInSeconds; // Store the remaining time
+
+        const output = document.querySelector(".output");
+        output.innerHTML = `<p>Your score: ${remainingTime} seconds</p>`;
+
         const nextButtons = document.querySelectorAll(".next, .submit");
         nextButtons.forEach(nextButton => {
             nextButton.classList.add("hide");
         });
 
-        const output = document.querySelector(".output");
-        output.innerHTML = `<p>Your remaining time: ${remainingTime} seconds</p>`;
+        output.innerHTML += `<button class="reset" onClick="window.location.reload()">Reset</button>`;
     }
 }
 
@@ -83,31 +88,23 @@ function submit() {
             const correctAnswerElement = question.querySelector("p");
             const correctAnswer = correctAnswerElement.textContent.trim().split(": ")[1];
 
-            const output = document.querySelector(".output");
+            const feedbackElement = document.createElement("div");
+            feedbackElement.className = "feedback";
 
             if (answerValue === correctAnswer) {
-                output.innerHTML = `<h3>You have selected the right answer!</h3>`;
+                feedbackElement.innerHTML = `<h3>You have selected the right answer!</h3>`;
             } else {
-                output.textContent = `Incorrect! The correct answer was: ${correctAnswer}`;
+                feedbackElement.textContent = `Incorrect! The correct answer was: ${correctAnswer}`;
                 timeToWaitInSeconds -= 10;
             }
 
+            // Append feedback to the output, and only remove the feedback after 5 seconds
+            const output = document.querySelector(".output");
+            output.appendChild(feedbackElement);
+
             setTimeout(() => {
-                output.textContent = "";
+                feedbackElement.remove(); // Only remove the feedback, not the whole output content
             }, 5000);
-
-            // If it's the last question, stop the timer
-            if (currentQuestionIndex === questions.length - 1) {
-                clearTimeout(timerInterval); // Stop the timer
-                remainingTime = timeToWaitInSeconds; // Store the remaining time
-                const nextButtons = document.querySelectorAll(".next, .submit");
-                nextButtons.forEach(nextButton => {
-                    nextButton.classList.add("hide");
-                });
-
-                const output = document.querySelector(".output");
-                output.innerHTML = `<p>Your remaining time: ${remainingTime} seconds</p>`;
-            }
         }
     });
 }
