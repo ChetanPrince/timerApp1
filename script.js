@@ -1,4 +1,6 @@
 let timeToWaitInSeconds;
+let remainingTime;
+let timerInterval;
 
 function counter(initialTime) {
     timeToWaitInSeconds = initialTime;
@@ -9,7 +11,7 @@ function counter(initialTime) {
         timeToWaitInSeconds -= 1;
 
         if (timeToWaitInSeconds >= 0) {
-            setTimeout(countdown, 1000);
+            timerInterval = setTimeout(countdown, 1000);
         } else {
             timerElement.innerHTML = `<p>Time is Up! Kindly restart the quiz.</p> <br><button onClick="window.location.reload()">Restart</button>`;
             const nextButtons = document.querySelectorAll(".next, .submit");
@@ -19,7 +21,7 @@ function counter(initialTime) {
         }
     }
 
-    setTimeout(countdown, 1000);
+    timerInterval = setTimeout(countdown, 1000);
     return timeToWaitInSeconds;
 }
 
@@ -64,7 +66,7 @@ function next() {
         });
 
         const output = document.querySelector(".output");
-        output.innerHTML = `<p>Your remaining time: ${timeToWaitInSeconds} seconds</p>`;
+        output.innerHTML = `<p>Your remaining time: ${remainingTime} seconds</p>`;
     }
 }
 
@@ -93,6 +95,19 @@ function submit() {
             setTimeout(() => {
                 output.textContent = "";
             }, 5000);
+
+            // If it's the last question, stop the timer
+            if (currentQuestionIndex === questions.length - 1) {
+                clearTimeout(timerInterval); // Stop the timer
+                remainingTime = timeToWaitInSeconds; // Store the remaining time
+                const nextButtons = document.querySelectorAll(".next, .submit");
+                nextButtons.forEach(nextButton => {
+                    nextButton.classList.add("hide");
+                });
+
+                const output = document.querySelector(".output");
+                output.innerHTML = `<p>Your remaining time: ${remainingTime} seconds</p>`;
+            }
         }
     });
 }
