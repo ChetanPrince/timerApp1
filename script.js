@@ -16,6 +16,7 @@ function counter(initialTime) {
         }
     }
     setTimeout(countdown, 1000);
+    return timeToWaitInSeconds;
 }
 
 const button = document.querySelector(".startQuiz");
@@ -49,6 +50,9 @@ function next() {
  nextButtons.forEach(nextButton => {
             nextButton.classList.add("hide");
         });
+        const output = document.querySelector(".output");
+        output.innerHTML = `<p>${timeToWaitInSeconds}</p>`;
+
     }}
 
 function submit() {
@@ -72,25 +76,8 @@ function submit() {
             }
             setTimeout(() => {
                 output.textContent ="";
-            }, 2000);
+            }, 5000);
         }
         
     });
 }
-
-
-
-
-// two next button has to be evented once an answer is provided
-    // upon an answer is received and checked and processed next button is highlighted and submit button has to be disabled
-    // when it reaches to the length of questions and is pressed last time remaining time has to be recorded.
-// once the last next button is pressed the timer should stop and be recorded automatically
-
-
-
-// three view highscore records previous solved data and compares it with the current puzzle solve
-    // the recorded time has to be displayed and previously recorded time has to be replaced if is lesser than the current score with the current score and should be displayed as the new highscore.
-    // if previously held score was higher than the current one message should display your score and should display previous highscore
-
-// one timer has to reduce by 10 seconds on each wrong answer
-    // for this step upon submit answers are matched and if is incorrect then timer is reduced if is correct next button should be highlighted
