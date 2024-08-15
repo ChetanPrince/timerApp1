@@ -47,11 +47,12 @@ button.addEventListener("click", () => {
 function next() {
     const questions = document.querySelectorAll(".questions");
     let currentQuestionIndex = -1;
-
+    const nextButtons = document.querySelectorAll(".submit");
     questions.forEach((question, index) => {
         if (!question.classList.contains("hide")) {
             currentQuestionIndex = index;
             question.classList.add("hide");
+            
             const nextButtons = document.querySelectorAll(".next");
             nextButtons.forEach(nextButton => {
                 nextButton.classList.toggle("hide");
@@ -63,6 +64,10 @@ function next() {
 
     if (nextQuestionIndex < questions.length) {
         questions[nextQuestionIndex].classList.remove("hide");
+        nextButtons.forEach(nextButton=>{
+            nextButton.classList.toggle("hide");
+        })
+        
     } else {
         clearTimeout(timerInterval); // Stop the timer
         remainingTime = timeToWaitInSeconds; // Store the remaining time
@@ -70,7 +75,6 @@ function next() {
         const output = document.querySelector(".output");
         output.innerHTML = `<p>Your score: ${remainingTime} seconds</p>`;
 
-        const nextButtons = document.querySelectorAll(".next, .submit");
         nextButtons.forEach(nextButton => {
             nextButton.classList.add("hide");
         });
@@ -115,9 +119,9 @@ function submit() {
 
             setTimeout(() => {
                 feedbackElement.remove(); // Only remove the feedback, not the whole output content
-            }, 5000);
+            }, 1000);
         }
-        const nextButtons = document.querySelectorAll(".next");
+        const nextButtons = document.querySelectorAll(".next, .submit");
         nextButtons.forEach(nextButton=>{
 
             nextButton.classList.toggle("hide");
@@ -134,7 +138,7 @@ function saveScore(name, score) {
 document.querySelector(".highScore").addEventListener("click", () => {
     const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     const sortedScores = highScores.sort((a, b) => b.score - a.score);
-    const topScores = sortedScores.slice(0, 5); // Display top 5 scores
+    const topScores = sortedScores.slice(0, 3); // Display top 5 scores
 
     let scoreList = "<h2>High Scores:</h2>";
     topScores.forEach(score => {
