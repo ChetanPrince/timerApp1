@@ -47,13 +47,13 @@ button.addEventListener("click", () => {
 function next() {
     const questions = document.querySelectorAll(".questions");
     let currentQuestionIndex = -1;
-    const nextButtons = document.querySelectorAll(".submit");
+
+    const nextButtons = document.querySelectorAll(".next"); 
+    const submitButtons = document.querySelectorAll(".submit"); 
     questions.forEach((question, index) => {
         if (!question.classList.contains("hide")) {
             currentQuestionIndex = index;
             question.classList.add("hide");
-            
-            const nextButtons = document.querySelectorAll(".next");
             nextButtons.forEach(nextButton => {
                 nextButton.classList.toggle("hide");
             });
@@ -64,8 +64,8 @@ function next() {
 
     if (nextQuestionIndex < questions.length) {
         questions[nextQuestionIndex].classList.remove("hide");
-        nextButtons.forEach(nextButton=>{
-            nextButton.classList.toggle("hide");
+        submitButtons.forEach(submitButton=>{
+            submitButton.classList.toggle("hide");
         })
         
     } else {
@@ -77,6 +77,9 @@ function next() {
 
         nextButtons.forEach(nextButton => {
             nextButton.classList.add("hide");
+        });
+        submitButtons.forEach(submitButton => {
+            submitButton.classList.add("hide");
         });
 
         const name = prompt("Enter your name to save your score:");
@@ -123,7 +126,6 @@ function submit() {
         }
         const nextButtons = document.querySelectorAll(".next, .submit");
         nextButtons.forEach(nextButton=>{
-
             nextButton.classList.toggle("hide");
         })
     });
