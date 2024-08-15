@@ -37,7 +37,7 @@ button.addEventListener("click", () => {
         }
 
         if (!container.classList.contains("hide") && !container.querySelector(".next")) {
-            container.innerHTML += `<button class="submit" onClick="submit()">Submit</button><button class="next" onClick="next()">Next</button>`;
+            container.innerHTML += `<button class="submit" onClick="submit()">Submit</button><button class="next hide" onClick="next()">Next</button>`;
         }
     });
 
@@ -52,6 +52,10 @@ function next() {
         if (!question.classList.contains("hide")) {
             currentQuestionIndex = index;
             question.classList.add("hide");
+            const nextButtons = document.querySelectorAll(".next");
+            nextButtons.forEach(nextButton => {
+                nextButton.classList.toggle("hide");
+            });
         }
     });
 
@@ -71,6 +75,13 @@ function next() {
             nextButton.classList.add("hide");
         });
 
+        const name = prompt("Enter your name to save your score:");
+        if (name) {
+            saveScore(name, remainingTime);
+            const timerElement = document.querySelector(".timerElement");
+        timerElement.textContent = `Timer:`;
+        }
+
         output.innerHTML += `<button class="reset" onClick="window.location.reload()">Reset</button>`;
     }
 }
@@ -78,8 +89,8 @@ function next() {
 function submit() {
     const questions = document.querySelectorAll(".questions");
     let currentQuestionIndex = -1;
-
     questions.forEach((question, index) => {
+       
         if (!question.classList.contains("hide")) {
             currentQuestionIndex = index;
 
@@ -106,5 +117,33 @@ function submit() {
                 feedbackElement.remove(); // Only remove the feedback, not the whole output content
             }, 5000);
         }
+        const nextButtons = document.querySelectorAll(".next");
+        nextButtons.forEach(nextButton=>{
+
+            nextButton.classList.toggle("hide");
+        })
     });
 }
+
+function saveScore(name, score) {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    highScores.push({ name, score });
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+document.querySelector(".highScore").addEventListener("click", () => {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    const sortedScores = highScores.sort((a, b) => b.score - a.score);
+    const topScores = sortedScores.slice(0, 5); // Display top 5 scores
+
+    let scoreList = "<h2>High Scores:</h2>";
+    topScores.forEach(score => {
+        scoreList += `<p>${score.name}: ${score.score} seconds</p>`;
+    });
+
+    const output = document.querySelector(".output");
+    output.innerHTML = scoreList;
+    output.innerHTML += `<button class="reset" onClick="window.location.reload()">Reset</button>`
+    const timerElement = document.querySelector(".timerElement");
+        timerElement.textContent = `Timer: `;
+});
